@@ -7,7 +7,7 @@
 <style>
 @page {
     size: A4 portrait;
-    margin: 10mm;
+    margin: 8mm;
 }
 
 body {
@@ -16,16 +16,20 @@ body {
     margin: 0;
 }
 
-/* A4 Printable Area */
+/* A4 Layout */
 .container {
-    width: 170mm;
-    height: 257mm;
-    margin: 0 auto;
-    padding: 15mm;
+    width: 100%;
+    max-width: 190mm;
+    margin: auto;
+    padding: 12mm;
     background: #fff;
     border: 2px solid #0d47a1;
     box-sizing: border-box;
-    page-break-after: avoid;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 270mm;   /* Ensures content fits inside A4 */
 }
 
 /* Header */
@@ -36,53 +40,54 @@ body {
 }
 
 .logo img {
-    width: 110px;
+    width: 100px;
 }
 
 .company-info {
     text-align: right;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .company-info h2 {
     margin: 0;
     color: #0d47a1;
+    font-size: 18px;
 }
 
 /* Title */
 .title {
     text-align: center;
-    font-size: 30px;
+    font-size: 24px;
     font-weight: bold;
-    margin-top: 15px;
+    margin: 10px 0;
     color: #1b5e20;
     border-bottom: 2px solid #1b5e20;
-    padding-bottom: 5px;
+    padding-bottom: 4px;
 }
 
 /* Sections */
 .section {
-    margin-top: 15px;
-    font-size: 14px;
+    margin-top: 10px;
+    font-size: 13px;
 }
 
 input {
     border: none;
     border-bottom: 1px solid #000;
     width: 100%;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .inline-input {
-    width: 200px;
+    width: 180px;
 }
 
 /* Table */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 12px;
-    font-size: 13px;
+    margin-top: 10px;
+    font-size: 12px;
 }
 
 th {
@@ -92,31 +97,31 @@ th {
 
 th, td {
     border: 1px solid #000;
-    padding: 5px;
+    padding: 4px;
     text-align: center;
 }
 
 /* Summary */
 .summary {
-    margin-top: 15px;
+    margin-top: 10px;
     width: 45%;
-    float: right;
+    margin-left: auto;
 }
 
 .summary td {
-    padding: 6px;
+    padding: 5px;
 }
 
 /* Footer */
 .footer {
-    margin-top: 40px;
+    margin-top: 15px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
 
 .signature img {
-    width: 140px;
+    width: 120px;
 }
 
 /* Print Button */
@@ -138,24 +143,20 @@ button {
 
     body {
         background: #fff;
-        margin: 0;
-    }
-
-    .container {
-        page-break-inside: avoid;
-        break-inside: avoid;
-    }
-
-    table {
-        page-break-inside: avoid;
-    }
-
-    .footer {
-        page-break-inside: avoid;
     }
 
     .print-btn {
         display: none;
+    }
+
+    .container {
+        border: 2px solid #0d47a1;
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    table, .footer {
+        page-break-inside: avoid;
     }
 }
 </style>
@@ -199,10 +200,12 @@ window.onload = setDate;
 
 <div class="container">
 
+<div>
+
     <!-- Header -->
     <div class="header">
         <div class="logo">
-            <img src="logo.png" alt="Logo">
+            <img src="logo.png">
         </div>
         <div class="company-info">
             <h2>Elite Resumes</h2>
@@ -273,12 +276,12 @@ window.onload = setDate;
         </table>
     </div>
 
-    <div style="clear:both;"></div>
+</div>
 
     <!-- Footer -->
     <div class="footer">
         <div class="signature">
-            <img src="signature.png" alt="Signature"><br>
+            <img src="signature.png"><br>
             Authorized Signature & Seal
         </div>
     </div>
