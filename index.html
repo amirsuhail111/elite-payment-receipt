@@ -1,292 +1,264 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Elite Resumes - Bill of Supply</title>
+    <meta charset="UTF-8">
+    <title>Bill of Supply - Elite Resumes</title>
+    <style>
+        body { 
+            font-family: 'Helvetica', Arial, sans-serif; 
+            background: #525659; 
+            margin: 0; 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+        }
 
-<style>
-@page {
-    size: A4 portrait;
-    margin: 8mm;
-}
+        /* STRICT A4 DIMENSIONS */
+        #invoice {
+            width: 794px; 
+            height: 1123px;
+            background: white;
+            padding: 40px;
+            box-sizing: border-box;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
 
-body {
-    font-family: 'Segoe UI', sans-serif;
-    background: #f4f6f9;
-    margin: 0;
-}
+        /* HEADER */
+        .header { display: flex; justify-content: space-between; align-items: flex-start; }
+        .logo { width: 120px; }
+        .company-info { text-align: right; font-size: 12px; line-height: 1.4; color: #333; }
+        .company-info h2 { margin: 0; color: #1f4aa8; font-size: 24px; }
+        
+        .divider { border-top: 2px solid #1f4aa8; margin: 15px 0; }
+        h1 { text-align: center; color: #1f6b2c; margin: 5px 0 20px; font-size: 26px; letter-spacing: 1px; }
 
-/* A4 Layout */
-.container {
-    width: 100%;
-    max-width: 190mm;
-    margin: auto;
-    padding: 12mm;
-    background: #fff;
-    border: 2px solid #0d47a1;
-    box-sizing: border-box;
+        /* INPUTS */
+        .details-section { font-size: 14px; margin-bottom: 20px; }
+        .row { display: flex; margin-bottom: 12px; align-items: center; }
+        .row label { font-weight: bold; width: 100px; }
+        input, select { padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; background: #fff; }
+        .input-full { flex-grow: 1; }
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 270mm;   /* Ensures content fits inside A4 */
-}
+        /* TABLE */
+        .table-wrap { flex-grow: 1; margin-top: 10px; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #1f4aa8; color: white; padding: 12px; border: 1px solid #1f4aa8; font-size: 14px; }
+        td { border: 1px solid #ccc; padding: 8px; text-align: center; height: 40px; }
+        .item-input { width: 95%; border: none; text-align: center; background: transparent; outline: none; font-size: 14px; }
 
-/* Header */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+        /* WATERMARK */
+        #paidStamp {
+            position: absolute;
+            top: 45%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-25deg);
+            font-size: 100px; font-weight: bold;
+            color: rgba(0, 150, 0, 0.12);
+            border: 12px solid rgba(0, 150, 0, 0.12);
+            padding: 10px 40px; border-radius: 20px;
+            display: none; z-index: 100; pointer-events: none;
+        }
 
-.logo img {
-    width: 100px;
-}
+        /* BOTTOM LAYOUT */
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: auto;
+            padding-bottom: 10px;
+        }
 
-.company-info {
-    text-align: right;
-    font-size: 12px;
-}
+        .seal-area { text-align: center; width: 250px; }
+        .seal-area img { width: 140px; }
+        .seal-area p { margin-top: 10px; font-weight: bold; border-top: 2px solid #000; padding-top: 5px; font-size: 14px; }
 
-.company-info h2 {
-    margin: 0;
-    color: #0d47a1;
-    font-size: 18px;
-}
+        .summary-area { width: 300px; }
+        .summary-table td { text-align: right; border: none; padding: 6px; font-size: 14px; }
+        .summary-table input { width: 120px; text-align: right; font-weight: bold; border: 1px solid #eee; background: #fff; }
 
-/* Title */
-.title {
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    margin: 10px 0;
-    color: #1b5e20;
-    border-bottom: 2px solid #1b5e20;
-    padding-bottom: 4px;
-}
+        /* UI BUTTONS */
+        .controls { margin: 30px 0 60px; display: flex; gap: 15px; }
+        .btn { 
+            padding: 15px 25px; background: #1f4aa8; color: white; border: none; 
+            border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 15px; 
+            min-width: 140px;
+        }
+        .btn-whatsapp { background: #25D366; }
+        .btn-email { background: #ea4335; }
 
-/* Sections */
-.section {
-    margin-top: 10px;
-    font-size: 13px;
-}
-
-input {
-    border: none;
-    border-bottom: 1px solid #000;
-    width: 100%;
-    font-size: 12px;
-}
-
-.inline-input {
-    width: 180px;
-}
-
-/* Table */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-    font-size: 12px;
-}
-
-th {
-    background: #0d47a1;
-    color: #fff;
-}
-
-th, td {
-    border: 1px solid #000;
-    padding: 4px;
-    text-align: center;
-}
-
-/* Summary */
-.summary {
-    margin-top: 10px;
-    width: 45%;
-    margin-left: auto;
-}
-
-.summary td {
-    padding: 5px;
-}
-
-/* Footer */
-.footer {
-    margin-top: 15px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.signature img {
-    width: 120px;
-}
-
-/* Print Button */
-.print-btn {
-    margin: 20px 0;
-    text-align: center;
-}
-
-button {
-    padding: 8px 20px;
-    background: #0d47a1;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-}
-
-/* Print Optimization */
-@media print {
-
-    body {
-        background: #fff;
-    }
-
-    .print-btn {
-        display: none;
-    }
-
-    .container {
-        border: 2px solid #0d47a1;
-        page-break-inside: avoid;
-        break-inside: avoid;
-    }
-
-    table, .footer {
-        page-break-inside: avoid;
-    }
-}
-</style>
-
-<script>
-function calculateTotal() {
-    let total = 0;
-
-    for (let i = 1; i <= 6; i++) {
-        let qty = parseFloat(document.getElementById("qty"+i).value) || 0;
-        let rate = parseFloat(document.getElementById("rate"+i).value) || 0;
-        let amount = qty * rate;
-
-        document.getElementById("amount"+i).value = amount ? amount.toFixed(2) : "";
-        total += amount;
-    }
-
-    document.getElementById("total").value = total.toFixed(2);
-
-    let paid = parseFloat(document.getElementById("paid").value) || 0;
-    let balance = total - paid;
-
-    document.getElementById("balance").value = balance.toFixed(2);
-}
-
-function setDate() {
-    const today = new Date();
-    const formatted = today.toISOString().split('T')[0];
-    document.getElementById("date").value = formatted;
-}
-
-window.onload = setDate;
-</script>
-
+        /* PRINT SETTINGS */
+        @media print {
+            @page { size: A4; margin: 0; }
+            body { background: white; padding: 0; }
+            .controls { display: none; }
+            #invoice { box-shadow: none; margin: 0; width: 100%; height: 100vh; padding: 40px; }
+            input, select { border: none !important; appearance: none; -webkit-appearance: none; }
+        }
+    </style>
 </head>
 <body>
 
-<div class="print-btn">
-    <button onclick="window.print()">Print / Save as PDF</button>
-</div>
-
-<div class="container">
-
-<div>
-
-    <!-- Header -->
+<div id="invoice">
     <div class="header">
-        <div class="logo">
-            <img src="logo.png">
-        </div>
+        <img src="logo.png" class="logo">
         <div class="company-info">
             <h2>Elite Resumes</h2>
             Elite Professional Solutions Pvt. Ltd.<br>
             Mobile: +91 7902468500<br>
             Email: createresumewithus@gmail.com<br>
             support@eliteresumes.in<br>
-            GSTIN: <strong>32AAHCE9464A1ZU</strong>
+            GSTIN: 32AAHCE9464A1ZU
         </div>
     </div>
 
-    <div class="title">BILL OF SUPPLY</div>
+    <div class="divider"></div>
+    <h1>BILL OF SUPPLY</h1>
 
-    <!-- Receipt Info -->
-    <div class="section">
-        Receipt No: <input class="inline-input"><br><br>
-        Date: <input type="date" id="date" class="inline-input">
+    <div class="details-section">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+            <div><strong>Receipt No:</strong> <input type="text" id="receiptNo" readonly style="width:180px;"></div>
+            <div><strong>Date:</strong> <input type="text" id="date"></div>
+        </div>
+        <div class="row"><label>Name:</label><input type="text" id="name" class="input-full" placeholder="Enter Client Name"></div>
+        <div class="row">
+            <label>WhatsApp:</label>
+            <select id="countryCode" style="margin-right:5px;"></select>
+            <input type="text" id="whatsapp" placeholder="Number" class="input-full">
+        </div>
+        <div class="row"><label>Email:</label><input type="email" id="email" class="input-full"></div>
     </div>
 
-    <!-- Bill To -->
-    <div class="section">
-        <strong>Bill To:</strong><br><br>
-        Name: <input><br><br>
-        Phone: <input><br><br>
-        Email: <input><br><br>
-    </div>
-
-    <!-- Table -->
-    <table>
-        <tr>
-            <th>Sl No</th>
-            <th>Item Description</th>
-            <th>Qty</th>
-            <th>Rate</th>
-            <th>Amount</th>
-        </tr>
-
-        <script>
-        for(let i=1;i<=6;i++){
-            document.write(`
-            <tr>
-                <td>${i}</td>
-                <td><input></td>
-                <td><input type="number" id="qty${i}" oninput="calculateTotal()"></td>
-                <td><input type="number" id="rate${i}" oninput="calculateTotal()"></td>
-                <td><input type="number" id="amount${i}" readonly></td>
-            </tr>
-            `);
-        }
-        </script>
-    </table>
-
-    <!-- Summary -->
-    <div class="summary">
-        <table>
-            <tr>
-                <td>Total</td>
-                <td><input id="total" readonly></td>
-            </tr>
-            <tr>
-                <td>Amount Paid</td>
-                <td><input id="paid" oninput="calculateTotal()"></td>
-            </tr>
-            <tr>
-                <td>Balance</td>
-                <td><input id="balance" readonly></td>
-            </tr>
+    <div class="table-wrap">
+        <table id="itemsTable">
+            <thead>
+                <tr>
+                    <th style="width: 50px;">SI</th>
+                    <th>Item Description</th>
+                    <th style="width: 80px;">Qty</th>
+                    <th style="width: 100px;">Rate</th>
+                    <th style="width: 120px;">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <script>
+                    for(let i=1; i<=5; i++){
+                        document.write(`<tr>
+                            <td>${i}</td>
+                            <td><input type="text" class="item-input" oninput="calc()"></td>
+                            <td><input type="number" class="item-input" oninput="calc()"></td>
+                            <td><input type="number" class="item-input" oninput="calc()"></td>
+                            <td><input type="number" class="item-input" readonly></td>
+                        </tr>`);
+                    }
+                </script>
+            </tbody>
         </table>
     </div>
 
-</div>
+    <div id="paidStamp">PAID</div>
 
-    <!-- Footer -->
-    <div class="footer">
-        <div class="signature">
-            <img src="signature.png"><br>
-            Authorized Signature & Seal
+    <div class="footer-container">
+        <div class="seal-area">
+            <img src="seal.png">
+            <p>Authorized Signature & Seal</p>
+        </div>
+        <div class="summary-area">
+            <table class="summary-table">
+                <tr><td><strong>Total Amount:</strong></td><td><input type="number" id="total" readonly></td></tr>
+                <tr><td>Amount Paid:</td><td><input type="number" id="paid" oninput="calc()"></td></tr>
+                <tr><td><strong>Balance Due:</strong></td><td><input type="number" id="balance" readonly></td></tr>
+            </table>
         </div>
     </div>
-
 </div>
 
+<div class="controls">
+    <button class="btn" onclick="prepareAndPrint()">Print Invoice</button>
+    <button class="btn btn-whatsapp" onclick="sendWA()">Send WhatsApp</button>
+    <button class="btn btn-email" onclick="sendEmail()">Send Email</button>
+</div>
+
+<script>
+// Specific Country List Requested
+const countries = [
+    {n: "India", c: "91"}, {n: "Pakistan", c: "92"}, {n: "Bangladesh", c: "880"},
+    {n: "Sri Lanka", c: "94"}, {n: "United Arab Emirates", c: "971"},
+    {n: "United Kingdom", c: "44"}, {n: "United States", c: "1"},
+    {n: "Saudi Arabia", c: "966"}, {n: "Qatar", c: "974"}, {n: "Bahrain", c: "973"},
+    {n: "Oman", c: "968"}, {n: "Kuwait", c: "965"}, {n: "Austria", c: "43"},
+    {n: "New Zealand", c: "64"}, {n: "Canada", c: "1"}
+];
+
+const select = document.getElementById("countryCode");
+countries.forEach(country => {
+    let opt = document.createElement("option");
+    opt.value = country.c;
+    opt.text = `${country.n} (+${country.c})`;
+    if(country.c === "91") opt.selected = true;
+    select.appendChild(opt);
+});
+
+const now = new Date();
+document.getElementById('date').value = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()}`;
+
+function generateID() {
+    let d = new Date().toISOString().slice(0,10).replace(/-/g,"");
+    let c = localStorage.getItem("receiptCount") || 1000;
+    c = parseInt(c) + 1;
+    localStorage.setItem("receiptCount", c);
+    document.getElementById("receiptNo").value = `ER-${d}-${c}`;
+}
+generateID();
+
+function calc() {
+    let table = document.getElementById("itemsTable");
+    let total = 0;
+    for(let i=1; i<table.rows.length; i++){
+        let q = table.rows[i].cells[2].querySelector('input').value || 0;
+        let r = table.rows[i].cells[3].querySelector('input').value || 0;
+        let a = q * r;
+        table.rows[i].cells[4].querySelector('input').value = a > 0 ? a.toFixed(2) : "";
+        total += parseFloat(a);
+    }
+    document.getElementById("total").value = total.toFixed(2);
+    let p = document.getElementById("paid").value || 0;
+    let b = total - p;
+    document.getElementById("balance").value = b.toFixed(2);
+    document.getElementById("paidStamp").style.display = (b <= 0 && total > 0) ? "block" : "none";
+}
+
+// Function to handle filename and Print
+function prepareAndPrint() {
+    const clientName = document.getElementById("name").value || "Client";
+    const receiptNo = document.getElementById("receiptNo").value;
+    
+    // Set Document Title temporarily for filename
+    document.title = `Bill of Supply-${clientName}-${receiptNo}-Elite Resumes`;
+    
+    window.print();
+}
+
+function sendWA() {
+    let c = document.getElementById("countryCode").value;
+    let n = document.getElementById("whatsapp").value;
+    let name = document.getElementById("name").value;
+    if(!n) return alert("Enter Number");
+    let msg = `Hello ${name}, your bill from Elite Resumes is ready.`;
+    window.open(`https://wa.me/${c}${n}?text=${encodeURIComponent(msg)}`);
+}
+
+function sendEmail() {
+    let email = document.getElementById("email").value;
+    let name = document.getElementById("name").value;
+    let receipt = document.getElementById("receiptNo").value;
+    if(!email) return alert("Enter Email");
+    let subject = `Invoice ${receipt} - Elite Resumes`;
+    let body = `Dear ${name},\n\nPlease find your bill attached.\n\nThank you.`;
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+</script>
 </body>
 </html>
