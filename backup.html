@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Elite Resumes - Bill of Supply</title>
+
+<style>
+@page {
+    size: A4;
+    margin: 20mm;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f6f9;
+}
+
+.container {
+    width: 210mm;
+    min-height: 297mm;
+    background: #fff;
+    margin: auto;
+    padding: 25px;
+    border: 2px solid #0d47a1;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    width: 120px;
+}
+
+.company-info {
+    text-align: right;
+}
+
+.company-info h2 {
+    margin: 0;
+    color: #0d47a1;
+}
+
+.title {
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #1b5e20;
+    border-bottom: 2px solid #1b5e20;
+    padding-bottom: 5px;
+}
+
+.section {
+    margin-top: 20px;
+}
+
+input {
+    border: none;
+    border-bottom: 1px solid #000;
+    width: 100%;
+}
+
+.inline-input {
+    width: 200px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th {
+    background: #0d47a1;
+    color: #fff;
+}
+
+th, td {
+    border: 1px solid #000;
+    padding: 6px;
+    text-align: center;
+}
+
+.summary {
+    margin-top: 20px;
+    width: 40%;
+    float: right;
+}
+
+.summary td {
+    padding: 8px;
+}
+
+.footer {
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.signature img {
+    width: 150px;
+}
+
+.print-btn {
+    margin: 20px 0;
+    text-align: center;
+}
+
+button {
+    padding: 8px 20px;
+    background: #0d47a1;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+@media print {
+    .print-btn {
+        display: none;
+    }
+    body {
+        background: #fff;
+    }
+}
+</style>
+
+<script>
+function calculateTotal() {
+    let total = 0;
+    for (let i = 1; i <= 6; i++) {
+        let qty = document.getElementById("qty"+i).value;
+        let rate = document.getElementById("rate"+i).value;
+        let amount = qty * rate;
+        if (!isNaN(amount)) {
+            document.getElementById("amount"+i).value = amount.toFixed(2);
+            total += amount;
+        }
+    }
+    document.getElementById("total").value = total.toFixed(2);
+
+    let paid = document.getElementById("paid").value;
+    let balance = total - paid;
+    document.getElementById("balance").value = balance.toFixed(2);
+}
+
+function setDate() {
+    const today = new Date();
+    const formatted = today.toISOString().split('T')[0];
+    document.getElementById("date").value = formatted;
+}
+
+window.onload = setDate;
+</script>
+
+</head>
+<body>
+
+<div class="print-btn">
+    <button onclick="window.print()">Print / Save as PDF</button>
+</div>
+
+<div class="container">
+
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">
+            <img src="logo.png">
+        </div>
+        <div class="company-info">
+            <h2>Elite Resumes</h2>
+            Elite Professional Solutions Pvt. Ltd.<br>
+            Mobile: +91 7902468500<br>
+            Email: createresumewithus@gmail.com<br>
+            support@eliteresumes.in<br>
+            GSTIN: <strong>32AAHCE9464A1ZU</strong>
+        </div>
+    </div>
+
+    <div class="title">BILL OF SUPPLY</div>
+
+    <!-- Receipt Info -->
+    <div class="section">
+        Receipt No: <input class="inline-input"><br><br>
+        Date: <input type="date" id="date" class="inline-input">
+    </div>
+
+    <!-- Bill To -->
+    <div class="section">
+        <strong>Bill To:</strong><br><br>
+        Name: <input><br><br>
+        Company: <input><br><br>
+        Phone: <input><br><br>
+        Email: <input><br><br>
+        GSTIN: <input>
+    </div>
+
+    <!-- Table -->
+    <table>
+        <tr>
+            <th>Sl No</th>
+            <th>Item Description</th>
+            <th>Qty</th>
+            <th>Rate</th>
+            <th>Amount</th>
+        </tr>
+
+        <!-- 6 Rows -->
+        <script>
+        for(let i=1;i<=6;i++){
+            document.write(`
+            <tr>
+                <td>${i}</td>
+                <td><input></td>
+                <td><input type="number" id="qty${i}" oninput="calculateTotal()"></td>
+                <td><input type="number" id="rate${i}" oninput="calculateTotal()"></td>
+                <td><input type="number" id="amount${i}" readonly></td>
+            </tr>
+            `);
+        }
+        </script>
+    </table>
+
+    <!-- Summary -->
+    <div class="summary">
+        <table>
+            <tr>
+                <td>Total</td>
+                <td><input id="total" readonly></td>
+            </tr>
+            <tr>
+                <td>Amount Paid</td>
+                <td><input id="paid" oninput="calculateTotal()"></td>
+            </tr>
+            <tr>
+                <td>Balance</td>
+                <td><input id="balance" readonly></td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="clear:both;"></div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div>
+            Date: ____________________
+        </div>
+
+        <div class="signature">
+            <img src="signature.png"><br>
+            Authorized Signature & Seal
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
